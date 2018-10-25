@@ -12,10 +12,10 @@ Currently contains abstractions for the following:
 
 NVIC (nvic.h) - Nested Vectored Interrupt Controller (all basic functionality should exist)
 
-GPIO (io.h) - General Purpose I/O (all registers exposed, added functionality for hardware-masked reads and writes)
+GPIO (io.h) - General Purpose I/O Block (all registers exposed, added functionality for hardware-masked reads and writes)
 
-IOCON (io.h) - I/O Controller Block (all registers exposed, no convenience functions or enums yet)
+IOCON (io.h) - I/O Control Block (all registers exposed, no convenience functions or enums yet)
 
-SYSCON (syscon.h) - System Controller Block (all registers exposed, no convenience functions or enums yet)
+SYSCON (syscon.h) - System Control Block (all registers exposed, no convenience functions or enums yet)
 
-FMC (fmc.h)
+FMC (fmc.h) - Flash Memory Control Block (all registers exposed, only convenience function for safely changing flash timings so far)
