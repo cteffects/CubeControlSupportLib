@@ -8,6 +8,8 @@
 #ifndef SYSCON_H_
 #define SYSCON_H_
 
+#include "bitutils.h"
+
 namespace CubeControl
 {
 
@@ -224,12 +226,12 @@ constexpr volatile unsigned int& PDSLEEPCFG()
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PDSLEEPCFG_Offset);
 }
 
-constexpr volatile unsigned int& PDAWAKECFG()
+constexpr volatile unsigned int& PDAWAKECFG() // Relevant functions in namespace POWER
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PDAWAKECFG_Offset);
 }
 
-constexpr volatile unsigned int& PDRUNCFG()
+constexpr volatile unsigned int& PDRUNCFG() // Relevant functions in namespace POWER
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PDRUNCFG_Offset);
 }
@@ -239,8 +241,92 @@ constexpr volatile unsigned int& DEVICE_ID()
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + DEVICE_ID_Offset);
 }
 
+namespace POWERCFG
+{
+
+enum DEVICE_POWER_MASK : unsigned int
+{
+    IRCOUT_PD = 0,
+    IRC_PD = 1 << 1,
+    FLASH_PD = 1 << 2,
+    BOD_PD = 1 << 3,
+    ADC_PD = 1 << 4,
+    SYSOSC_PD = 1 << 5,
+    WDTOSC_PD = 1 << 6,
+    SYSPLL_PD = 1 << 7
+};
+
+constexpr int POWER_CFG_RESERVED_WRITE_BITS = 0xED00;
+
+static inline void powerUp(DEVICE_POWER_MASK devicePowerMask)
+{
+    unsigned int pdruncfg = PDRUNCFG() & 0xFF;
+    pdruncfg &= ~(devicePowerMask & 0xFF);
+    PDRUNCFG() = (pdruncfg | POWER_CFG_RESERVED_WRITE_BITS);
 }
 
+static inline void powerDown(DEVICE_POWER_MASK devicePowerMask)
+{
+    unsigned int pdruncfg = PDRUNCFG() & 0xFF;
+    pdruncfg |= (devicePowerMask & 0xFF);
+    PDRUNCFG() = (pdruncfg | POWER_CFG_RESERVED_WRITE_BITS);
 }
+
+static inline void setPowerUpOnDeepWakeUp(DEVICE_POWER_MASK devicePowerMask)
+{
+    unsigned int pdawakecfg = PDAWAKECFG() & 0xFF;
+    pdawakecfg &= ~(devicePowerMask & 0xFF);
+    PDRUNCFG() = (pdawakecfg | POWER_CFG_RESERVED_WRITE_BITS);
+}
+
+static inline void setPowerDownOnDeepWakeUp(DEVICE_POWER_MASK devicePowerMask)
+{
+    unsigned int pdawakecfg = PDAWAKECFG() & 0xFF;
+    pdawakecfg |= (devicePowerMask & 0xFF);
+    PDAWAKECFG() = (pdawakecfg | POWER_CFG_RESERVED_WRITE_BITS);
+}
+
+} // POWER
+
+namespace CLOCKCFG
+{
+
+enum DEVICE_CLOCK_MASK : unsigned int
+{
+    SYS = 0,
+    ROM = 1 << 1,
+    RAM = 1 << 2,
+    FLASHREG = 1 << 3,
+    FLASHARRAY = 1 << 4,
+    I2C = 1 << 5,
+    GPIO = 1 << 6,
+    CT16B0 = 1 << 7,
+    CT16B1 = 1 << 8,
+    CT32B0 = 1 << 9,
+    CT32B1 = 1 << 10,
+    SPI_SSP0 = 1 << 11,
+    UART = 1 << 12,
+    ADC = 1 << 13,
+    WDT = 1 << 15,
+    IOCON = 1 << 16,
+    CAN = 1 << 17,
+    SSP1 = 1 << 18
+};
+
+static inline void enableClock(DEVICE_CLOCK_MASK deviceClockMask)
+{
+    SYSAHBCLKCTRL() |= deviceClockMask;
+}
+
+static inline void disableClock(DEVICE_CLOCK_MASK deviceClockMask)
+{
+    SYSAHBCLKCTRL() &= ~deviceClockMask;
+}
+
+} // CLOCKCFG
+
+} // SYSCON
+
+} // CubeControl
 
 #endif /* SYSCON_H_ */
