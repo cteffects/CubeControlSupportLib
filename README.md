@@ -10,14 +10,17 @@ Does not depend LPCOpen or CMSIS
 
 Currently contains abstractions for the following:
 
+ADC (adc.h) - Analog-to-Digital Converter (just registers exposed so far)
+
 NVIC (nvic.h) - Nested Vectored Interrupt Controller (all basic functionality should exist)
 
 GPIO/IOCON/SPI/UART/I2C (io.h) - I/O Blocks (all registers exposed, has functionality for hardware-masked reads and writes on GPIO)
 
 IOCON (io.h) - I/O Control Block (all registers exposed, no convenience functions or enums yet)
 
-SYSCON (syscon.h) - System Control Block (all registers exposed, no convenience functions or enums yet)
+SYSCON (syscon.h) - System Control Block (just registers exposed so far)
 
 FMC (fmc.h) - Flash Memory Control Block (all registers exposed, only convenience function for safely changing flash timings so far)
 
-Timers (timer.h) - 16/32-bit General Purpose Timers, Watchdog Timers, and SysTick Timers (all registers exposed, no convenience functions yet)
+Timers (timer.h) - 16/32-bit General Purpose Timers, Watchdog Timers, and SysTick Timers (just registers exposed so far)
+
