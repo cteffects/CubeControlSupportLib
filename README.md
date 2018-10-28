@@ -14,7 +14,7 @@ ADC (adc.h) - Analog-to-Digital Converter (just registers exposed so far)
 
 NVIC (nvic.h) - Nested Vectored Interrupt Controller (all basic functionality should exist)
 
-GPIO/IOCON/SPI/UART/I2C (io.h) - I/O Blocks (all registers exposed, has functionality for hardware-masked reads and writes on GPIO)
+GPIO/SPI/UART/I2C (io.h) - I/O Peripheral Blocks (all registers exposed, has functionality for hardware-masked reads and writes on GPIO)
 
 IOCON (io.h) - I/O Control Block (all registers exposed, no convenience functions or enums yet)
 
