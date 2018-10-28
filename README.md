@@ -18,7 +18,7 @@ GPIO/SPI/UART/I2C (io.h) - I/O Peripheral Blocks (all registers exposed, has fun
 
 IOCON (io.h) - I/O Control Block (all registers exposed, no convenience functions or enums yet)
 
-SYSCON (syscon.h) - System Control Block (just registers exposed so far)
+SYSCON (syscon.h) - System Configuration Block (all registers exposed, some power and clock control functions)
 
 FMC (fmc.h) - Flash Memory Control Block (all registers exposed, only convenience function for safely changing flash timings so far)
 

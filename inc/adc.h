@@ -2,7 +2,7 @@
  * adc.h
  *
  *  Created on: Oct 27, 2018
- *      Author: Charles
+ *      Author: Charles Trippe
   *      An API implementation of the ADC (Analog-to-Digital Converter) register maps for the LPC1114
  */
 

@@ -2,7 +2,7 @@
  * bitutils.h
  *
  *  Created on: Oct 25, 2018
- *      Author: Charles
+ *      Author: Charles Trippe
  */
 
 #ifndef BITUTILS_H_

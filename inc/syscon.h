@@ -2,7 +2,7 @@
  * syscon.h
  *
  *  Created on: Oct 24, 2018
- *      Author: Charles
+ *      Author: Charles Trippe
  *      An API implementation of the SYSCON register map for the LPC1114
  */
 
@@ -242,6 +242,34 @@ constexpr volatile unsigned int& DEVICE_ID()
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + DEVICE_ID_Offset);
 }
 
+namespace PLLCFG
+{
+
+enum PLLSource : unsigned int
+{
+    IRC = 0,
+    SYS_OSC = 1
+};
+
+static inline void setPLLDivider(unsigned int msel, unsigned int psel)
+{
+    SYSPLLCTRL() = (msel & 0x1F) | ((psel & 0x3) << 5);
+}
+
+static inline void setSystemPLLSource(PLLSource source)
+{
+    SYSPLLCLKSEL()  = source;
+    SYSPLLCLKUEN()  = 0;
+    SYSPLLCLKUEN()  = 1;
+}
+
+static inline bool isPLLLocked()
+{
+    return (SYSPLLSTAT() & 1) != 0;
+}
+
+}
+
 namespace POWERCFG
 {
 
@@ -292,6 +320,9 @@ static inline void setPowerDownOnDeepWakeUp(DEVICE_POWER_MASK devicePowerMask)
 namespace CLOCKCFG
 {
 
+namespace DEVICE_CLOCK_MASK
+{
+
 enum DEVICE_CLOCK_MASK : unsigned int
 {
     SYS = 1,
@@ -314,14 +345,36 @@ enum DEVICE_CLOCK_MASK : unsigned int
     SSP1 = 1 << 18
 };
 
-static inline void enableClock(DEVICE_CLOCK_MASK deviceClockMask)
+}
+
+static inline void enableClock(DEVICE_CLOCK_MASK::DEVICE_CLOCK_MASK deviceClockMask)
 {
     SYSAHBCLKCTRL() |= deviceClockMask;
 }
 
-static inline void disableClock(DEVICE_CLOCK_MASK deviceClockMask)
+static inline void disableClock(DEVICE_CLOCK_MASK::DEVICE_CLOCK_MASK deviceClockMask)
 {
     SYSAHBCLKCTRL() &= ~deviceClockMask;
+}
+
+namespace MAIN_CLOCK_SOURCE
+{
+
+enum MAIN_CLOCK_SOURCE : unsigned int
+{
+    IRC = 0,
+    SYSTEM_PLL_INPUT = 1,
+    WDT_OSC = 2,
+    SYSTEM_PLL_OUTPUT = 3
+};
+
+}
+
+static inline void setMainClockSource(MAIN_CLOCK_SOURCE::MAIN_CLOCK_SOURCE source)
+{
+    MAINCLKSEL()  = source;
+    MAINCLKUEN()  = 0;
+    MAINCLKUEN()  = 1;
 }
 
 } // CLOCKCFG

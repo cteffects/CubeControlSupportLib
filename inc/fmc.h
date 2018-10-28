@@ -17,6 +17,9 @@ namespace CubeControl
 namespace FMC
 {
 
+namespace Timing
+{
+
 enum Timing : unsigned int
 {
     FLASHTIM_20_MHZ = 0x0,
@@ -24,6 +27,7 @@ enum Timing : unsigned int
     FLASHTIM_50_MHZ = 0x2
 };
 
+}
 constexpr unsigned int baseAddress = 0x4003C000; // Flash-Access-Timing Register
 
 constexpr unsigned int FLASHTIM_Offset = 0x010; // Flash-Access-Timing Register
@@ -41,7 +45,7 @@ constexpr volatile unsigned int& FLASHTIM()
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + FLASHTIM_Offset);
 }
 
-static inline void Set_FLASHTIM(Timing timing)
+static inline void Set_FLASHTIM(Timing::Timing timing)
 {
     masked_write_bits_unsafe(FLASHTIM(), timing, 0b11);
 }
