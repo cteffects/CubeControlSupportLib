@@ -19,7 +19,7 @@ namespace Timer
 namespace GPTimer // General Purpose 16/32-bit timers
 {
 
-enum Timer : unsigned int
+enum GPTimerID : unsigned int
 {
     CT16B0 = 0,
     CT16B1 = 1,
@@ -46,77 +46,78 @@ constexpr unsigned int EMR_Offset = 0x03C; // External Match Register (EMR)
 constexpr unsigned int CTCR_Offset = 0x070; // Count Control Register (CTCR)
 constexpr unsigned int PWMC_Offset = 0x074; // PWM Control Register (PWMCON)
 
-static inline volatile unsigned int& IR(Timer timer)
+
+static inline volatile unsigned int& IR(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + IR_Offset);
 }
 
-static inline volatile unsigned int& TCR(Timer timer)
+static inline volatile unsigned int& TCR(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + TCR_Offset);
 }
 
-static inline volatile unsigned int& TC(Timer timer)
+static inline volatile unsigned int& TC(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + TC_Offset);
 }
 
-static inline volatile unsigned int& PR(Timer timer)
+static inline volatile unsigned int& PR(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + PR_Offset);
 }
 
-static inline volatile unsigned int& PC(Timer timer)
+static inline volatile unsigned int& PC(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + PC_Offset);
 }
 
-static inline volatile unsigned int& MCR(Timer timer)
+static inline volatile unsigned int& MCR(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + MCR_Offset);
 }
 
-static inline volatile unsigned int& MR0(Timer timer)
+static inline volatile unsigned int& MR0(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + MR0_Offset);
 }
 
-static inline volatile unsigned int& MR1(Timer timer)
+static inline volatile unsigned int& MR1(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + MR1_Offset);
 }
 
-static inline volatile unsigned int& MR2(Timer timer)
+static inline volatile unsigned int& MR2(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + MR2_Offset);
 }
 
-static inline volatile unsigned int& MR3(Timer timer)
+static inline volatile unsigned int& MR3(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + MR3_Offset);
 }
 
-static inline volatile unsigned int& CCR(Timer timer)
+static inline volatile unsigned int& CCR(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + CCR_Offset);
 }
 
-static inline volatile unsigned int& CR0(Timer timer)
+static inline volatile unsigned int& CR0(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + CR0_Offset);
 }
 
-static inline volatile unsigned int& EMR(Timer timer)
+static inline volatile unsigned int& EMR(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + EMR_Offset);
 }
 
-static inline volatile unsigned int& CTCR(Timer timer)
+static inline volatile unsigned int& CTCR(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + CTCR_Offset);
 }
 
-static inline volatile unsigned int& PWMC(Timer timer)
+static inline volatile unsigned int& PWMC(GPTimerID timer)
 {
     return *reinterpret_cast<unsigned int*>(baseAddress + timerSpacing * timer + PWMC_Offset);
 }
@@ -124,7 +125,7 @@ static inline volatile unsigned int& PWMC(Timer timer)
 } // GPTimer
 
 
-namespace WDT //Watchdog Timer
+namespace WWDT //Windowed Watchdog Timer
 {
 
 constexpr unsigned int baseAddress = 0x40004000;
