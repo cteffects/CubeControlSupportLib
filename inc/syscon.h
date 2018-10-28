@@ -3,6 +3,7 @@
  *
  *  Created on: Oct 24, 2018
  *      Author: Charles
+ *      An API implementation of the SYSCON register map for the LPC1114
  */
 
 #ifndef SYSCON_H_
@@ -246,7 +247,7 @@ namespace POWERCFG
 
 enum DEVICE_POWER_MASK : unsigned int
 {
-    IRCOUT_PD = 0,
+    IRCOUT_PD = 1,
     IRC_PD = 1 << 1,
     FLASH_PD = 1 << 2,
     BOD_PD = 1 << 3,
@@ -293,7 +294,7 @@ namespace CLOCKCFG
 
 enum DEVICE_CLOCK_MASK : unsigned int
 {
-    SYS = 0,
+    SYS = 1,
     ROM = 1 << 1,
     RAM = 1 << 2,
     FLASHREG = 1 << 3,

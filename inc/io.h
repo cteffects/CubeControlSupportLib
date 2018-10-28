@@ -3,7 +3,7 @@
  *
  *  Created on: Oct 23, 2018
  *      Author: Charles Trippe
- Register locations for the LPC11XX chip's I/O functions + I/O Controller
+ *      An API implementation of the GPIO/IOCON/UART/SPI/I2C register map for the LPC1114
 
  Addresses Transcribed from the NXP LPC11XX User Manual
  https://www.nxp.com/docs/en/user-guide/UM10398.pdf
@@ -302,6 +302,9 @@ constexpr volatile unsigned int& RI_LOC()
 namespace GPIO
 {
 
+constexpr unsigned int baseAddress = 0x50000000;
+constexpr unsigned int portSpacing = 0x10000;
+
 constexpr unsigned int DIR_Offset = 0x8000;
 constexpr unsigned int IS_Offset = 0x8004;
 constexpr unsigned int IBE_Offset = 0x8008;
@@ -310,65 +313,347 @@ constexpr unsigned int IE_Offset = 0x8010;
 constexpr unsigned int RIS_Offset = 0x8014;
 constexpr unsigned int MIS_Offset = 0x8018;
 constexpr unsigned int IC_Offset = 0x801C;
-constexpr unsigned int PORT_Spacing = 0x10000;
-constexpr unsigned int baseAddress = 0x50000000;
+
 
 constexpr volatile unsigned int& CONSTEXPR_MASKED_DATA(unsigned int port, unsigned int bitmask)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + (bitmask << 2));
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + (bitmask << 2));
 }
 
 static inline volatile unsigned int& MASKED_DATA(unsigned int port, unsigned int bitmask)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + (bitmask << 2));
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + (bitmask << 2));
 }
 
-constexpr volatile unsigned int& RAW_DATA(unsigned int port)
+static inline volatile unsigned int& RAW_DATA(unsigned int port)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + 0b11111111111100);
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + 0b11111111111100);
 }
 
-constexpr volatile unsigned int& DIR(unsigned int port)
+static inline volatile unsigned int& DIR(unsigned int port)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + DIR_Offset);
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + DIR_Offset);
 }
 
-constexpr volatile unsigned int& IS(unsigned int port)
+static inline volatile unsigned int& IS(unsigned int port)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + IS_Offset);
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + IS_Offset);
 }
 
-constexpr volatile unsigned int& IBE(unsigned int port)
+static inline volatile unsigned int& IBE(unsigned int port)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + IBE_Offset);
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + IBE_Offset);
 }
 
-constexpr volatile unsigned int& IEV(unsigned int port)
+static inline volatile unsigned int& IEV(unsigned int port)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + IEV_Offset);
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + IEV_Offset);
 }
 
-constexpr volatile unsigned int& IE(unsigned int port)
+static inline volatile unsigned int& IE(unsigned int port)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + IE_Offset);
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + IE_Offset);
 }
 
-constexpr volatile unsigned int& RIS(unsigned int port)
+static inline volatile unsigned int& RIS(unsigned int port)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + RIS_Offset);
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + RIS_Offset);
 }
 
-constexpr volatile unsigned int& MIS(unsigned int port)
+static inline volatile unsigned int& MIS(unsigned int port)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + MIS_Offset);
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + MIS_Offset);
 }
 
-constexpr volatile unsigned int& IC(unsigned int port)
+static inline volatile unsigned int& IC(unsigned int port)
 {
-    return *reinterpret_cast<volatile unsigned int*>(baseAddress + PORT_Spacing * port + IC_Offset);
+    return *reinterpret_cast<volatile unsigned int*>(baseAddress + portSpacing * port + IC_Offset);
 }
 
 } // GPIO
+
+namespace UART
+{
+
+constexpr unsigned int baseAddress = 0x40008000;
+
+constexpr unsigned int U0RBR_Offset = 0x000; // Receiver Buffer Register
+constexpr unsigned int U0THR_Offset = 0x000; // Transmit Holding Register
+constexpr unsigned int U0DLL_Offset = 0x000; // Divisor Latch LSB
+constexpr unsigned int U0DLM_Offset = 0x004; // Divisor Latch MSB
+constexpr unsigned int U0IER_Offset = 0x004; // Interrupt Enable Register
+constexpr unsigned int U0IIR_Offset = 0x008; // Interrupt ID Register
+constexpr unsigned int U0FCR_Offset = 0x008; // FIFO Control Register
+constexpr unsigned int U0LCR_Offset = 0x00C; // Line Control Register
+constexpr unsigned int U0MCR_Offset = 0x010; // Modem control register
+constexpr unsigned int U0LSR_Offset = 0x014; // Line Status Register
+constexpr unsigned int U0MSR_Offset = 0x018; // Modem status register
+constexpr unsigned int U0SCR_Offset = 0x01C; // Scratch Pad Register
+constexpr unsigned int U0ACR_Offset = 0x020; // Auto-baud Control Register
+constexpr unsigned int U0FDR_Offset = 0x028; // Fractional Divider Register
+constexpr unsigned int U0TER_Offset = 0x030; // Transmit Enable Register
+constexpr unsigned int U0RS485CTRL_Offset = 0x04C; // RS-485/EIA-485 Control
+constexpr unsigned int U0RS485ADRMATCH_Offset = 0x050; // RS-485/EIA-485 address match
+constexpr unsigned int U0RS485DLY_Offset = 0x054; // RS-485/EIA-485 direction control delay
+
+constexpr volatile unsigned int& U0RBR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0RBR_Offset);
+}
+
+constexpr volatile unsigned int& U0THR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0THR_Offset);
+}
+
+constexpr volatile unsigned int& U0DLL()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0DLL_Offset);
+}
+
+constexpr volatile unsigned int& U0DLM()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0DLM_Offset);
+}
+
+constexpr volatile unsigned int& U0IER()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0IER_Offset);
+}
+
+constexpr volatile unsigned int& U0IIR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0IIR_Offset);
+}
+
+constexpr volatile unsigned int& U0FCR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0FCR_Offset);
+}
+
+constexpr volatile unsigned int& U0LCR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0LCR_Offset);
+}
+
+constexpr volatile unsigned int& U0MCR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0MCR_Offset);
+}
+
+constexpr volatile unsigned int& U0LSR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0LSR_Offset);
+}
+
+constexpr volatile unsigned int& U0MSR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0MSR_Offset);
+}
+
+constexpr volatile unsigned int& U0SCR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0SCR_Offset);
+}
+
+constexpr volatile unsigned int& U0ACR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0ACR_Offset);
+}
+
+constexpr volatile unsigned int& U0FDR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0FDR_Offset);
+}
+
+constexpr volatile unsigned int& U0TER()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0TER_Offset);
+}
+
+constexpr volatile unsigned int& U0RS485CTRL()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0RS485CTRL_Offset);
+}
+
+constexpr volatile unsigned int& U0RS485ADRMATCH()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0RS485ADRMATCH_Offset);
+}
+
+constexpr volatile unsigned int& U0RS485DLY()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + U0RS485DLY_Offset);
+}
+
+namespace SPI
+{
+
+constexpr unsigned int baseAddress = 0x40040000;
+constexpr unsigned int portSpacing = 0x18000;
+
+constexpr unsigned int CR0_Offset = 0x000; // Control Register 0
+constexpr unsigned int CR1_Offset = 0x004; // Control Register 1
+constexpr unsigned int DR_Offset = 0x008; // Data Register
+constexpr unsigned int SR_Offset = 0x00C; // Status Register
+constexpr unsigned int CPSR_Offset = 0x010; // Clock Prescale Register
+constexpr unsigned int IMSC_Offset = 0x014; // Interrupt Mask Set and Clear Register
+constexpr unsigned int RIS_Offset = 0x018; // Raw Interrupt Status Register
+constexpr unsigned int MIS_Offset = 0x01C; // Masked Interrupt Status Register
+constexpr unsigned int ICR_Offset = 0x020; // SSPICR Interrupt Clear Register
+
+static inline volatile unsigned int& CR0(unsigned int port)
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + CR0_Offset);
+}
+
+static inline volatile unsigned int& CR1(unsigned int port)
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + CR1_Offset);
+}
+
+static inline volatile unsigned int& DR(unsigned int port)
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + DR_Offset);
+}
+
+static inline volatile unsigned int& SR(unsigned int port)
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + SR_Offset);
+}
+
+static inline volatile unsigned int& CPSR(unsigned int port)
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + CPSR_Offset);
+}
+
+static inline volatile unsigned int& IMSC(unsigned int port)
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + IMSC_Offset);
+}
+
+static inline volatile unsigned int& RIS(unsigned int port)
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + RIS_Offset);
+}
+
+static inline volatile unsigned int& MIS(unsigned int port)
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + MIS_Offset);
+}
+
+static inline volatile unsigned int& ICR(unsigned int port)
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + ICR_Offset);
+}
+
+} // SPI0
+
+namespace I2C
+{
+
+constexpr unsigned int baseAddress = 0x40000000;
+
+constexpr unsigned int I2C0CONSET_Offset = 0x000; // I2C Control Set Register
+constexpr unsigned int I2C0STAT_Offset = 0x004; // I2C Status Register
+constexpr unsigned int I2C0DAT_Offset = 0x008; // I2C Data Register
+constexpr unsigned int I2C0ADR0_Offset = 0x00C; // I2C Slave Address Register 0
+constexpr unsigned int I2C0SCLH_Offset = 0x010; // SCH Duty Cycle Register High Half Word
+constexpr unsigned int I2C0SCLL_Offset = 0x014; // SCL Duty Cycle Register Low Half Word
+constexpr unsigned int I2C0CONCLR_Offset = 0x018; // I2C Control Clear Register
+constexpr unsigned int I2C0MMCTRL_Offset = 0x01C; // Monitor mode control register
+constexpr unsigned int I2C0ADR1_Offset = 0x020; // I2C Slave Address Register 1
+constexpr unsigned int I2C0ADR2_Offset = 0x024; // I2C Slave Address Register 2
+constexpr unsigned int I2C0ADR3_Offset = 0x028; // I2C Slave Address Register 3
+constexpr unsigned int I2C0DATA_BUFFER_Offset = 0x02C; // Data buffer register
+constexpr unsigned int I2C0MASK0_Offset = 0x030; // I2C Slave address mask register 0
+constexpr unsigned int I2C0MASK1_Offset = 0x034; // I2C Slave address mask register 1
+constexpr unsigned int I2C0MASK2_Offset = 0x038; // I2C Slave address mask register 2
+constexpr unsigned int I2C0MASK3_Offset = 0x03C; // I2C Slave address mask register 3
+
+constexpr volatile unsigned int& I2C0CONSET()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0CONSET_Offset);
+}
+
+constexpr volatile unsigned int& I2C0STAT()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0STAT_Offset);
+}
+
+constexpr volatile unsigned int& I2C0DAT()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0DAT_Offset);
+}
+
+constexpr volatile unsigned int& I2C0ADR0()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0ADR0_Offset);
+}
+
+constexpr volatile unsigned int& I2C0SCLH()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0SCLH_Offset);
+}
+
+constexpr volatile unsigned int& I2C0SCLL()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0SCLL_Offset);
+}
+
+constexpr volatile unsigned int& I2C0CONCLR()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0CONCLR_Offset);
+}
+
+constexpr volatile unsigned int& I2C0MMCTRL()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0MMCTRL_Offset);
+}
+
+constexpr volatile unsigned int& I2C0ADR1()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0ADR1_Offset);
+}
+
+constexpr volatile unsigned int& I2C0ADR2()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0ADR2_Offset);
+}
+
+constexpr volatile unsigned int& I2C0ADR3()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0ADR3_Offset);
+}
+
+constexpr volatile unsigned int& I2C0DATA_BUFFER()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0DATA_BUFFER_Offset);
+}
+
+constexpr volatile unsigned int& I2C0MASK0()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0MASK0_Offset);
+}
+
+constexpr volatile unsigned int& I2C0MASK1()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0MASK1_Offset);
+}
+
+constexpr volatile unsigned int& I2C0MASK2()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0MASK2_Offset);
+}
+
+constexpr volatile unsigned int& I2C0MASK3()
+{
+    return *reinterpret_cast<unsigned int*>(baseAddress + I2C0MASK3_Offset);
+}
+
+}
+
+}
 
 } // CubeControl
 

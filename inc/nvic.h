@@ -3,7 +3,7 @@
  *
  *  Created on: Oct 24, 2018
  *      Author: Charles Trippe
- *      Abstraction for Nested Vectored Interrupt Controller
+ *      An API implementation of the NVIC register map for the LPC1114
  */
 
 #ifndef NVIC_H_
