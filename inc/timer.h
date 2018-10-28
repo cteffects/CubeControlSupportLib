@@ -30,21 +30,21 @@ enum Timer : unsigned int
 constexpr unsigned int baseAddress = 0x4000C000;
 constexpr unsigned int timerSpacing = 0x4000;
 
-constexpr unsigned int IR_Offset = 0x000; // Interrupt Register (IR). The IR can be written to clear interrupts. The IR
-constexpr unsigned int TCR_Offset = 0x004; // Timer Control Register (TCR). The TCR is used to control the Timer
-constexpr unsigned int TC_Offset = 0x008; // Timer Counter (TC). The 16-bit TC is incremented every PR+1 cycles of
-constexpr unsigned int PR_Offset = 0x00C; // Prescale Register (PR). When the Prescale Counter (below) is equal to
-constexpr unsigned int PC_Offset = 0x010; // Prescale Counter (PC). The 16-bit PC is a counter which is incremented
-constexpr unsigned int MCR_Offset = 0x014; // Match Control Register (MCR). The MCR is used to control if an interrupt
-constexpr unsigned int MR0_Offset = 0x018; // Match Register 0 (MR0). MR0 can be enabled through the MCR to reset
-constexpr unsigned int MR1_Offset = 0x01C; // Match Register 1 (MR1). See MR0 description. 0
-constexpr unsigned int MR2_Offset = 0x020; // Match Register 2 (MR2). See MR0 description. 0
-constexpr unsigned int MR3_Offset = 0x024; // Match Register 3 (MR3). See MR0 description. 0
-constexpr unsigned int CCR_Offset = 0x028; // Capture Control Register (CCR). The CCR controls which edges of the
-constexpr unsigned int CR0_Offset = 0x02C; // Capture Register 0 (CR0). CR0 is loaded with the value of TC when
-constexpr unsigned int EMR_Offset = 0x03C; // External Match Register (EMR). The EMR controls the match function
-constexpr unsigned int CTCR_Offset = 0x070; // Count Control Register (CTCR). The CTCR selects between Timer and
-constexpr unsigned int PWMC_Offset = 0x074; // PWM Control Register (PWMCON). The PWMCON enables PWM mode
+constexpr unsigned int IR_Offset = 0x000; // Interrupt Register (IR)
+constexpr unsigned int TCR_Offset = 0x004; // Timer Control Register (TCR)
+constexpr unsigned int TC_Offset = 0x008; // Timer Counter (TC)
+constexpr unsigned int PR_Offset = 0x00C; // Prescale Register (PR)
+constexpr unsigned int PC_Offset = 0x010; // Prescale Counter (PC)
+constexpr unsigned int MCR_Offset = 0x014; // Match Control Register (MCR)
+constexpr unsigned int MR0_Offset = 0x018; // Match Register 0 (MR0)
+constexpr unsigned int MR1_Offset = 0x01C; // Match Register 1 (MR1)
+constexpr unsigned int MR2_Offset = 0x020; // Match Register 2 (MR2)
+constexpr unsigned int MR3_Offset = 0x024; // Match Register 3 (MR3)
+constexpr unsigned int CCR_Offset = 0x028; // Capture Control Register (CCR)
+constexpr unsigned int CR0_Offset = 0x02C; // Capture Register 0 (CR0)
+constexpr unsigned int EMR_Offset = 0x03C; // External Match Register (EMR)
+constexpr unsigned int CTCR_Offset = 0x070; // Count Control Register (CTCR)
+constexpr unsigned int PWMC_Offset = 0x074; // PWM Control Register (PWMCON)
 
 static inline volatile unsigned int& IR(Timer timer)
 {
