@@ -12,6 +12,8 @@
 #ifndef IO_H_
 #define IO_H_
 
+#include "bitutils.h"
+
 namespace CubeControl
 {
 
@@ -72,210 +74,318 @@ constexpr volatile unsigned int& RESET_PIO0_0()
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + RESET_PIO0_0_Offset);
 }
 
+constexpr unsigned int PIO0_1_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO0_1()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO0_1_Offset);
 }
+
+
+constexpr unsigned int PIO0_2_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO0_2()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO0_2_Offset);
 }
 
+
+constexpr unsigned int PIO0_3_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO0_3()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO0_3_Offset);
 }
+
+
+constexpr unsigned int PIO0_4_WRITABLE_BITS_MASK = 0b1100000111;
 
 constexpr volatile unsigned int& PIO0_4()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO0_4_Offset);
 }
 
+constexpr unsigned int PIO0_5_WRITABLE_BITS_MASK = 0b1100000111;
+
 constexpr volatile unsigned int& PIO0_5()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO0_5_Offset);
 }
+
+constexpr unsigned int PIO0_6_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO0_6()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO0_6_Offset);
 }
 
+constexpr unsigned int PIO0_7_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO0_7()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO0_7_Offset);
 }
+
+constexpr unsigned int PIO0_8_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO0_8()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO0_8_Offset);
 }
 
+
+constexpr unsigned int PIO0_9_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO0_9()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO0_9_Offset);
 }
+
+constexpr unsigned int SWCLK_PIO0_10_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& SWCLK_PIO0_10()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + SWCLK_PIO0_10_Offset);
 }
 
+constexpr unsigned int PIO0_11_WRITABLE_BITS_MASK = 0b10010111111;
+
 constexpr volatile unsigned int& R_PIO0_11()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + R_PIO0_11_Offset);
 }
+
+constexpr unsigned int PIO1_8_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO1_8()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO1_8_Offset);
 }
 
+constexpr unsigned int PIO1_9_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO1_9()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO1_9_Offset);
 }
+
+constexpr unsigned int PIO1_10_WRITABLE_BITS_MASK = 0b10010111111;
 
 constexpr volatile unsigned int& PIO1_10()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO1_10_Offset);
 }
 
+constexpr unsigned int R_PIO1_0_WRITABLE_BITS_MASK = 0b10010111111;
+
 constexpr volatile unsigned int& R_PIO1_0()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + R_PIO1_0_Offset);
 }
+
+constexpr unsigned int R_PIO1_1_WRITABLE_BITS_MASK = 0b10010111111;
 
 constexpr volatile unsigned int& R_PIO1_1()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + R_PIO1_1_Offset);
 }
 
+
+constexpr unsigned int R_PIO1_2_WRITABLE_BITS_MASK = 0b10010111111;
+
 constexpr volatile unsigned int& R_PIO1_2()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + R_PIO1_2_Offset);
 }
+
+
+constexpr unsigned int SWDIO_PIO1_3_WRITABLE_BITS_MASK = 0b10010111111;
 
 constexpr volatile unsigned int& SWDIO_PIO1_3()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + SWDIO_PIO1_3_Offset);
 }
 
+
+constexpr unsigned int PIO1_4_WRITABLE_BITS_MASK = 0b10010111111;
+
 constexpr volatile unsigned int& PIO1_4()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO1_4_Offset);
 }
+
+
+constexpr unsigned int PIO1_11_WRITABLE_BITS_MASK = 0b10010111111;
 
 constexpr volatile unsigned int& PIO1_11()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO1_11_Offset);
 }
 
+constexpr unsigned int PIO1_5_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO1_5()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO1_5_Offset);
 }
+
+constexpr unsigned int PIO1_6_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO1_6()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO1_6_Offset);
 }
 
+constexpr unsigned int PIO1_7_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO1_7()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO1_7_Offset);
 }
+
+
+constexpr unsigned int PIO2_6_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO2_6()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_6_Offset);
 }
 
+
+constexpr unsigned int PIO2_0_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO2_0()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_0_Offset);
 }
+
+
+constexpr unsigned int PIO2_7_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO2_7()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_7_Offset);
 }
 
+
+constexpr unsigned int PIO2_8_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO2_8()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_8_Offset);
 }
+
+
+constexpr unsigned int PIO2_1_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO2_1()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_1_Offset);
 }
 
+
+constexpr unsigned int PIO2_4_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO2_4()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_4_Offset);
 }
+
+
+constexpr unsigned int PIO2_5_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO2_5()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_5_Offset);
 }
 
+
+constexpr unsigned int PIO2_9_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO2_9()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_9_Offset);
 }
+
+
+constexpr unsigned int PIO2_10_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO2_10()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_10_Offset);
 }
 
+
+constexpr unsigned int PIO2_2_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO2_2()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_2_Offset);
 }
+
+
+constexpr unsigned int PIO2_11_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO2_11()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_11_Offset);
 }
 
+constexpr unsigned int PIO2_3_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO2_3()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO2_3_Offset);
 }
+
+
+constexpr unsigned int PIO3_4_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO3_4()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO3_4_Offset);
 }
 
+
+constexpr unsigned int PIO3_5_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO3_5()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO3_5_Offset);
 }
+
+
+constexpr unsigned int PIO3_0_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO3_0()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO3_0_Offset);
 }
 
+
+constexpr unsigned int PIO3_1_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO3_1()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO3_1_Offset);
 }
+
+
+constexpr unsigned int PIO3_2_WRITABLE_BITS_MASK = 0b10000111111;
 
 constexpr volatile unsigned int& PIO3_2()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO3_2_Offset);
 }
 
+
+constexpr unsigned int PIO3_3_WRITABLE_BITS_MASK = 0b10000111111;
+
 constexpr volatile unsigned int& PIO3_3()
 {
     return *reinterpret_cast<volatile unsigned int*>(baseAddress + PIO3_3_Offset);
 }
+
 
 constexpr volatile unsigned int& SCK_LOC()
 {
@@ -486,6 +596,27 @@ constexpr volatile unsigned int& U0RS485DLY()
     return *reinterpret_cast<unsigned int*>(baseAddress + U0RS485DLY_Offset);
 }
 
+static inline void setBaudRateRegisters(unsigned int UDLM, unsigned int UDLL, unsigned int DivAddVal, unsigned int MulVal)
+{
+    set_bit(U0LCR(), 7);
+    U0DLM() = UDLM;
+    U0DLL() = UDLL;
+    U0FDR() = DivAddVal | (MulVal << 4);
+    clear_bit(U0LCR(), 7);
+}
+
+static inline bool hasRXData()
+{
+    return get_bit(U0LSR(), 0);
+}
+
+static inline char receiveNextByte()
+{
+    return U0RBR();
+}
+
+} //UART
+
 namespace SPI
 {
 
@@ -547,7 +678,7 @@ static inline volatile unsigned int& ICR(unsigned int port)
     return *reinterpret_cast<unsigned int*>(baseAddress + portSpacing * port + ICR_Offset);
 }
 
-} // SPI0
+} // SPI
 
 namespace I2C
 {
@@ -651,9 +782,7 @@ constexpr volatile unsigned int& I2C0MASK3()
     return *reinterpret_cast<unsigned int*>(baseAddress + I2C0MASK3_Offset);
 }
 
-}
-
-}
+} // I2C
 
 } // CubeControl
 

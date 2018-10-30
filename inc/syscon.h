@@ -287,28 +287,28 @@ enum DEVICE_POWER_MASK : unsigned int
 
 constexpr int POWER_CFG_RESERVED_WRITE_BITS = 0xED00;
 
-static inline void powerUp(DEVICE_POWER_MASK devicePowerMask)
+static inline void powerUp(unsigned int devicePowerMask)
 {
     unsigned int pdruncfg = PDRUNCFG() & 0xFF;
     pdruncfg &= ~(devicePowerMask & 0xFF);
     PDRUNCFG() = (pdruncfg | POWER_CFG_RESERVED_WRITE_BITS);
 }
 
-static inline void powerDown(DEVICE_POWER_MASK devicePowerMask)
+static inline void powerDown(unsigned int devicePowerMask)
 {
     unsigned int pdruncfg = PDRUNCFG() & 0xFF;
     pdruncfg |= (devicePowerMask & 0xFF);
     PDRUNCFG() = (pdruncfg | POWER_CFG_RESERVED_WRITE_BITS);
 }
 
-static inline void setPowerUpOnDeepWakeUp(DEVICE_POWER_MASK devicePowerMask)
+static inline void setPowerUpOnDeepWakeUp(unsigned int devicePowerMask)
 {
     unsigned int pdawakecfg = PDAWAKECFG() & 0xFF;
     pdawakecfg &= ~(devicePowerMask & 0xFF);
     PDRUNCFG() = (pdawakecfg | POWER_CFG_RESERVED_WRITE_BITS);
 }
 
-static inline void setPowerDownOnDeepWakeUp(DEVICE_POWER_MASK devicePowerMask)
+static inline void setPowerDownOnDeepWakeUp(unsigned int devicePowerMask)
 {
     unsigned int pdawakecfg = PDAWAKECFG() & 0xFF;
     pdawakecfg |= (devicePowerMask & 0xFF);
