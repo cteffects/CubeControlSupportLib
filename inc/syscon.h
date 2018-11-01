@@ -320,10 +320,14 @@ static inline void setPowerDownOnDeepWakeUp(unsigned int devicePowerMask)
 namespace CLOCKCFG
 {
 
+
+
 namespace DEVICE_CLOCK_MASK
 {
 
-enum DEVICE_CLOCK_MASK : unsigned int
+using ClockMask = unsigned int;
+
+enum DEVICE_CLOCK_MASK : ClockMask
 {
     SYS = 1,
     ROM = 1 << 1,
@@ -336,7 +340,7 @@ enum DEVICE_CLOCK_MASK : unsigned int
     CT16B1 = 1 << 8,
     CT32B0 = 1 << 9,
     CT32B1 = 1 << 10,
-    SPI_SSP0 = 1 << 11,
+    SSP0 = 1 << 11,
     UART = 1 << 12,
     ADC = 1 << 13,
     WDT = 1 << 15,
@@ -347,12 +351,12 @@ enum DEVICE_CLOCK_MASK : unsigned int
 
 }
 
-static inline void enableClock(DEVICE_CLOCK_MASK::DEVICE_CLOCK_MASK deviceClockMask)
+static inline void enableClock(DEVICE_CLOCK_MASK::ClockMask deviceClockMask)
 {
     SYSAHBCLKCTRL() |= deviceClockMask;
 }
 
-static inline void disableClock(DEVICE_CLOCK_MASK::DEVICE_CLOCK_MASK deviceClockMask)
+static inline void disableClock(DEVICE_CLOCK_MASK::ClockMask deviceClockMask)
 {
     SYSAHBCLKCTRL() &= ~deviceClockMask;
 }
@@ -360,7 +364,9 @@ static inline void disableClock(DEVICE_CLOCK_MASK::DEVICE_CLOCK_MASK deviceClock
 namespace MAIN_CLOCK_SOURCE
 {
 
-enum MAIN_CLOCK_SOURCE : unsigned int
+using ClockSource = unsigned int;
+
+enum MAIN_CLOCK_SOURCE : ClockSource
 {
     IRC = 0,
     SYSTEM_PLL_INPUT = 1,
@@ -370,7 +376,7 @@ enum MAIN_CLOCK_SOURCE : unsigned int
 
 }
 
-static inline void setMainClockSource(MAIN_CLOCK_SOURCE::MAIN_CLOCK_SOURCE source)
+static inline void setMainClockSource(MAIN_CLOCK_SOURCE::ClockSource source)
 {
     MAINCLKSEL()  = source;
     MAINCLKUEN()  = 0;
